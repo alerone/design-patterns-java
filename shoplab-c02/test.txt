@@ -1,0 +1,17 @@
+curl -i -H "Content-Type: application/json"  -d '
+{
+  "id": "p1",
+  "name": "Teclado",
+  "price": {
+    "amount": 49.9,
+    "currency": "EUR"
+  },
+  "kind": {
+    "type": "physical",
+    "weighGrams": 800
+  },
+  "stock": 12,
+  "category": "hardware"
+}
+    '  http://localhost:8080/products
+
