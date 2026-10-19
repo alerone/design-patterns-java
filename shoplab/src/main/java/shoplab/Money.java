@@ -10,8 +10,8 @@ import java.util.Objects;
 public record Money(BigDecimal amount, String currency) {
     private static final int SCALE = 2;
     public Money {
-        Objects.nonNull(amount);
-        Objects.nonNull(currency);
+        Objects.requireNonNull(amount);
+        Objects.requireNonNull(currency);
         if (amount.signum() < 0) throw new IllegalArgumentException("El dinero no puede tener una cantidad negativa.");
         if (currency.isBlank()) throw new IllegalArgumentException("El nombre de la moneda no puede estar vacío.");
 

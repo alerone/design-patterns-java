@@ -22,7 +22,7 @@ public class InMemoryRepository implements ProductRepository {
 
     @Override
     public Optional<Product> findById(String id) {
-        return Optional.of(store.get(id));
+        return Optional.ofNullable(store.get(id));
     }
 
     @Override
