@@ -11,7 +11,7 @@ import lombok.extern.jackson.Jacksonized;
  * ShippingAddress
  */
 @Value 
-@Builder 
+@Builder  
 @Jacksonized 
 public class ShippingAddress {
 
