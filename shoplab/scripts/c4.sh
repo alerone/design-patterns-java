@@ -5,7 +5,7 @@ $(curl -i -H "Content-Type: application/json" \
 http://localhost:8080/products)
 
 response=$(curl -H "Content-Type: application/json" -X POST localhost:8080/orders \
-    -d '{"items":[{"productId":"p1","quantity":2}], "address":{"recipient":"Ana","street":"Calle Sol 1","city":"Madrid","deliveryNotes":["portero"]},"region":"ES","paymentType":"CARD"}')
+    -d '{"items":[{"productId":"p1","quantity":2}], "shippingAddress":{"recipient":"Ana","street":"Calle Sol 1","city":"Madrid","deliveryNotes":["portero"]},"region":"ES","paymentType":"CARD"}')
 
 echo Se crea un order
 echo $response | jq

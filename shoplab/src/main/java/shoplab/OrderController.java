@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class OrderController {
 
     private final OrderService service;
+    private final CheckoutFacade checkout;
 
 
     @PostMapping 
@@ -41,6 +43,14 @@ public class OrderController {
     public ResponseEntity<Order> repeat(@PathVariable String id) {
         return service.repeat(id)
             .map(o -> ResponseEntity.status(HttpStatus.CREATED).body(o))
+            .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/{id}/checkout")
+    public ResponseEntity<CheckoutResult> checkout (@PathVariable String id,
+            @RequestParam(defaultValue = "email") String channel) {
+        return service.find(id)
+            .map(order -> ResponseEntity.ok(checkout.checkout(order, channel)))
             .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

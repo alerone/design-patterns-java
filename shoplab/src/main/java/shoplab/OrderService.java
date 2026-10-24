@@ -20,7 +20,7 @@ public class OrderService {
     public Order create(CreateOrderRequest rq) {
         Order.OrderBuilder builder = Order.builder()
             .id(UUID.randomUUID().toString())
-            .shippingAddress(rq.address())
+            .shippingAddress(rq.shippingAddress())
             .region(rq.region())
             .paymentType(rq.paymentType());
         for (OrderItemRequest item: rq.items()) {

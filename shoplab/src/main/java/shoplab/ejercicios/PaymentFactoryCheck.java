@@ -1,7 +1,12 @@
 package shoplab.ejercicios;
 
 import java.math.BigDecimal;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
+import shoplab.BankTransferProcessor;
+import shoplab.LegacyCardAdapter;
+import shoplab.LegacyCardClient;
 import shoplab.Money;
 import shoplab.PaymentProcessor;
 import shoplab.PaymentProcessorFactory;
@@ -13,7 +18,10 @@ import shoplab.PaymentType;
 public class PaymentFactoryCheck {
 
     public static void main(String[] args) {
-        PaymentProcessorFactory factory = new PaymentProcessorFactory();
+        Map<String, PaymentProcessor> processors = new ConcurrentHashMap<>();
+        processors.put("card", new LegacyCardAdapter(new LegacyCardClient()));
+        processors.put("transfer", new BankTransferProcessor());
+        PaymentProcessorFactory factory = new PaymentProcessorFactory(processors);
 
         Money amount = new Money(new BigDecimal("25.00"), "EUR");
         for (PaymentType t : PaymentType.values()) {
